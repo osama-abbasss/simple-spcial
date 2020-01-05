@@ -1,0 +1,19 @@
+<hr>
+<div class="media">
+  <div class="media-body">
+    <h5 class="mt-0 mb-1">{{post.text|safe}}</h5>
+    <br>
+    <a href="{% url 'groups:single_group' post.group.slug %}"  class="badge badge-secondary"> {{post.group.name}}</a>
+    <br>
+    <a  href="{% url 'posts:user_posts' post.user.username %}"> {{post.user.username}}  - </a>
+    <a href="{% url 'posts:post_detail' post.user.username post.pk %}">{{ post.created_at|date:"d/M/y"|lower }}</a>
+
+  </div>
+  {% if user.is_authenticated and post.user == request.user %}
+    <a href="{% url 'posts:delete_post' post.pk %}" title="delete" class="btn btn-light ">
+      <span class="fas fa-trash-alt text-danger " aria-hidden='true'> </span>
+      <span class="text-danger icon-lable">Delete</span>
+    </a>
+  {% endif %}
+</div>
+<hr>

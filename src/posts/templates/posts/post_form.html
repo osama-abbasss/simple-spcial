@@ -1,0 +1,14 @@
+{% extends "posts/post_base.html" %}
+{% load crispy_forms_tags %}
+{% block post_title %} create post{% endblock %}
+
+
+{% block post %}
+<form  method="post"  action="{% url 'posts:post_create' %}">
+  <h2> Create New post!</h2>
+  {% csrf_token %}
+  {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">post</button>
+</form>
+
+{% endblock %}

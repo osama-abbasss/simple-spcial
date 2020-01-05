@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{% block post_title %}{% endblock %}{% endblock %}
+
+
+{% block content %}
+  <div class="posts_page">
+   <div class="container mt-3 mb-3">
+     <div class="row">
+
+       {% block pre_post %}{% endblock %}
+       {% block post %}{% endblock %}
+       {% block after_post %}{% endblock %}
+
+     </div>
+   </div>
+  </div>
+{% endblock %}

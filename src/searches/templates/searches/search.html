@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+  search result
+{% endblock %}
+
+{% block extra_links %}
+<style>
+.search_not_found{
+    margin: 10px auto;
+}
+.search_not_found h3{
+    color: #2F7DFC
+}
+
+ul {
+ list-style-type: none;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+  {% if query %}
+    {% if group_query %}
+      <div class="container mb-3 mt-3">
+
+
+     <div class="col-md-8">
+
+       <div class="list-group">
+
+         {% for group in group_query %}
+           <a href="{% url 'groups:single_group' group.slug %}" class="list-group-item list-group-item-action">
+             <div class="d-flex w-100 justify-content-between">
+               <h5 class="mb-1">{{group.name}}</h5>
+
+               <small>{{group.created_at}}</small>
+             </div>
+             <p class="mb-1">{{group.description|safe}}</p>
+
+             <div>
+               <span class="badge">{{ group.members.count}}</span>
+               member
+             </div>
+
+             <div>
+               <span class="badge">{{ group.posts.count}}</span>
+               posts
+             </div>
+           </a>
+         {% endfor %}
+       </div>
+     </div>
+
+    </div>
+
+    {% else %}
+      <div class="container">
+          <div class='search_not_found mb-3'>
+              <p > Your search - <h3>{{query}}</h3>- did not match any documents.</p>
+
+              <br>
+              <h3>Suggestions:</h3>
+              <ul>
+                  <li>- Make sure that all words are spelled correctly.<li>
+                  <li>- Try different keywords.<li>
+                  <li>- Try more general keywords.<li>
+              </ul>
+          </div>
+      </div>
+    {% endif %}
+
+  {% else %}
+  <div class="container mt-3 mb-3">
+    <div class="d-flex align-items-center ">
+      <strong>plz type anything</strong>
+      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+    <ul>
+        <li>-post content<li>
+        <li>-post author<li>
+        <li>-group name<li>
+        <li>-group description<li>
+    </ul>
+  </div>
+
+
+  {% endif %}
+{% endblock %}

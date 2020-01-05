@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  {{profile.PROUser.username}}
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">Welcome
+        <small>{{profile.PROUser.username}}</small>
+      </h1>
+      <!-- Project One -->
+      <div class="row">
+        <div class="col-md-7">
+          <a href="#">
+            {% if profile.PROImg %}
+            <img class="img-fluid rounded mb-3 mb-md-0" src="{{profile.PROImg.url}}" alt="">
+            {% else %}
+              {% if profile.PROGender == 'female' %}
+              <img class="img-fluid rounded mb-3 mb-md-0" src="https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png" alt="">
+              {% else %}
+                <img class="img-fluid rounded mb-3 mb-md-0" src="https://image.flaticon.com/icons/png/512/21/21294.png" alt="">
+
+              {% endif %}
+            {% endif %}
+          </a>
+        </div>
+        <div class="col-md-5">
+          <h3 style="display: inline-block;">{{profile.PROUser.first_name}}</h3>
+           <h3 style="display: inline-block;">{{profile.PROUser.last_name}}</h3>
+           <hr>
+          <span>Gender :</span> <span>{{profile.PROGender}} </span><p></p>
+          <span>country :</span> <span>{{profile.PROCountry.name}} </span><p></p>
+          <span>address :</span> <span>{{profile.PROAddress}} </span><p></p>
+          <span>groups :</span> <span>{{profile}} </span><p></p>
+          <hr>
+          <a class="btn btn-warning" href="{% url 'accounts:edit_profile' %}">edit profile</a>
+          <a class="btn btn-primary" href="{% url 'groups:create_group' %}">create group</a>
+          <a class="btn btn-primary" href="{% url 'posts:post_create' %}">create post</a>
+        </div>
+      </div>
+
+      <hr>
+
+
+
+    </div>
+{% endblock %}

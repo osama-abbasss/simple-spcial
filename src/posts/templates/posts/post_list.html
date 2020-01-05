@@ -1,0 +1,49 @@
+{% extends "posts/post_base.html" %}
+{% block post_title %} Post List {% endblock %}
+
+{% block pre_post %}
+  <div class="col-md-4">
+    {% if user.is_authenticated %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">your Groups</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for user_group in object_list %}
+            {% if user_group.user in user_group.group.members.all %}
+              <li class="list-group-item">
+                <a class="btn btn-light btn-lg btn-block" href="{% url 'groups:single_group' user_group.group.slug %}">{{user_group.group.name}}</a>
+              </li>
+
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+  <div class="col-md-4">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">all Groups</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for all_group in object_list %}
+
+          <li class="list-group-item">
+            <a class="btn btn-info btn-lg btn-block" href="{% url 'groups:single_group' all_group.group.slug %}">{{all_group.group.name}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+<br>
+{% endblock %}
+
+
+{% block post %}
+  <div class="col-md-8">
+    {% for post in post_list %}
+      {% include "posts/_post.html" %}
+    {% endfor %}
+  </div>
+{% endblock %}
